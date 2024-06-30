@@ -1,0 +1,74 @@
+<launch>
+  <!-- Launch Gazebo with your robot -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find my_robot_description)/worlds/mazeone1.world"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+  </include>
+
+  <!-- Robot pose -->
+  <arg name="x" default="0"/>
+  <arg name="y" default="0"/>
+  <arg name="z" default="0"/>
+  <arg name="roll" default="0"/>
+  <arg name="pitch" default="0"/>
+  <arg name="yaw" default="0"/>
+
+  <!-- Spawn robot -->
+  <param name="robot_description" command="$(find xacro)/xacro '$(find my_robot_description)/urdf/nevil.urdf'" />
+  <!--
+  <node
+    name="joint_state_publisher"
+    pkg="joint_state_publisher"
+    type="joint_state_publisher" />
+  <node
+    name="robot_state_publisher"
+    pkg="robot_state_publisher"
+    type="robot_state_publisher" /> -->
+  <node
+    name="spawn_model"
+    pkg="gazebo_ros"
+    type="spawn_model"
+    respawn="false"
+    args="-param robot_description -urdf -model robot
+          -x $(arg x) -y $(arg y) -z $(arg z)
+          -R $(arg roll) -P $(arg pitch) -Y $(arg yaw)"
+    output="screen" />
+
+  <!-- Start map_server -->
+  <node name="map_server" pkg="map_server" type="map_server" args="/catkin_ws/src/my_robot_description/map/nevil.yaml" />
+
+  <!-- Start AMCL localization -->
+  <node name="amcl" pkg="amcl" type="amcl" output="screen">
+    <param name="odom_frame_id" value="odom" />
+    <param name="base_frame_id" value="base_footprint" />
+    <param name="scan_topic" value="/LaserScan" />
+    <param name="use_map_topic" value="true" />
+  </node>
+
+  <!-- Start move_base for navigation -->
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+        <rosparam file="$(find my_robot_description)/Config/costmap_common_params.yaml" command="load" ns="global_costmap"/>
+        <param name="global_costmap/scan/sensor_frame" type="str" value="laser_link"/>
+        <param name="global_costmap/scan/topic" type="str" value="/LaserScan"/>
+
+        <rosparam file="$(find my_robot_description)/Config/costmap_common_params.yaml" command="load" ns="local_costmap"/>
+        <param name="local_costmap/scan/sensor_frame" type="str" value="laser_link"/>
+        <param name="local_costmap/scan/topic" type="str" value="/LaserScan"/>
+
+        <rosparam file="$(find my_robot_description)/Config/local_costmap_params.yaml" command="load"/>
+        <param name="local_costmap/global_frame" type="str" value="odom"/>
+        <param name="local_costmap/robot_base_frame" type="str" value="base_footprint"/>
+
+        <rosparam file="$(find my_robot_description)/Config/global_costmap_params.yaml" command="load"/>
+        <param name="global_costmap/global_frame" type="str" value="map" />
+        <param name="global_costmap/robot_base_frame" type="str" value="base_footprint"/>
+
+        <rosparam file="$(find my_robot_description)/Config/base_local_planner_params.yaml" command="load"/>
+
+        <rosparam file="$(find my_robot_description)/Config/move_base_params.yaml" command="load"/>
+    </node>
+
+</launch>

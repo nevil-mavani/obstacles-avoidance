@@ -1,0 +1,8 @@
+<launch>
+    <!-- Run the obstacle avoidance node -->
+    <node name="obstacle_avoidance_node" pkg="obstacle_avoidance_node" type="imuandlaser.py" output="screen" />
+
+    <!-- Run the parking node -->
+    <node name="parking_node" pkg="parking_node" type="parking_node.py" output="screen">
+    </node>
+</launch>

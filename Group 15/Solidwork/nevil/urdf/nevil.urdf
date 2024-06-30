@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="nevil">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.001107 0.057697 -3.4568E-17"
+        rpy="0 0 0" />
+      <mass
+        value="11.198" />
+      <inertia
+        ixx="0.099787"
+        ixy="0.0014599"
+        ixz="-1.1623E-17"
+        iyy="0.17007"
+        iyz="-3.1681E-18"
+        izz="0.099885" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://nevil/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://nevil/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="left_link">
+    <inertial>
+      <origin
+        xyz="-1.3878E-17 0 0.025"
+        rpy="0 0 0" />
+      <mass
+        value="0.60379" />
+      <inertia
+        ixx="0.0010679"
+        ixy="-1.3235E-20"
+        ixz="7.031E-21"
+        iyy="0.0010679"
+        iyz="-1.8115E-20"
+        izz="0.0018964" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://nevil/meshes/left_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://nevil/meshes/left_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="lj"
+    type="revolute">
+    <origin
+      xyz="-0.115 -0.16 0.025"
+      rpy="1.5708 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="left_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="right_link">
+    <inertial>
+      <origin
+        xyz="-1.3878E-17 0 -0.025"
+        rpy="0 0 0" />
+      <mass
+        value="0.60379" />
+      <inertia
+        ixx="0.0010679"
+        ixy="-1.1994E-20"
+        ixz="1.2408E-20"
+        iyy="0.0010679"
+        iyz="-1.7784E-20"
+        izz="0.0018964" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://nevil/meshes/right_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://nevil/meshes/right_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rj"
+    type="revolute">
+    <origin
+      xyz="-0.115 0.16 0.025"
+      rpy="1.5708 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="right_link" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="camera">
+    <inertial>
+      <origin
+        xyz="0 0.014468 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.033216" />
+      <inertia
+        ixx="6.2425E-06"
+        ixy="-3.9129E-22"
+        ixz="-1.0609E-21"
+        iyy="7.4037E-06"
+        iyz="-4.9211E-22"
+        izz="6.2425E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://nevil/meshes/camera.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://nevil/meshes/camera.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="cj"
+    type="fixed">
+    <origin
+      xyz="0.18 0.075 0.05"
+      rpy="3.1416 0 -1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="camera" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="imu">
+    <inertial>
+      <origin
+        xyz="0 0.014468 -1.3878E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.033216" />
+      <inertia
+        ixx="6.2425E-06"
+        ixy="-7.2219E-23"
+        ixz="-3.4131E-21"
+        iyy="7.4037E-06"
+        iyz="-1.4026E-22"
+        izz="6.2425E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://nevil/meshes/imu.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://nevil/meshes/imu.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="ij"
+    type="fixed">
+    <origin
+      xyz="0.18 -0.075 0.05"
+      rpy="3.1416 0 -1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="imu" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+  
+</robot>
